@@ -26,7 +26,7 @@ module Luhn
       end
       index+=1
     end
-    
+
     result = 0;
     digits.reverse.each do |index|
       result += index
@@ -34,5 +34,3 @@ module Luhn
     result % 10 != 0 ? false : true
   end
 end
-
-Luhn.valid?("4539 3195 0343 6467")
