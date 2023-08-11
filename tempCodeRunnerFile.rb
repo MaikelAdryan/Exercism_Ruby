@@ -1,0 +1,1 @@
+first_operand.to_s operation second_operand.to_s
