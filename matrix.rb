@@ -16,11 +16,9 @@ class Matrix
     number_of_column = 0
     while number_of_column != @matrix.length
       @matrix[number_of_column].split(" ").each{|i|
-        # if @matrix[number_of_column].split(" ").index(number+1)
-        if @matrix[number_of_column].split(" ").index(i.to_i) == number
-          matrix_numbers << i.to_i
+        if @matrix[number_of_column].split(" ")[number-1].to_i == i.to_i
+          matrix_numbers << i.to_i #@matrix[number_of_column].split(" ")[number-1].to_i
         end
-        p @matrix[number_of_column].split(" ")[number-1]
       }
       number_of_column+=1
     end
