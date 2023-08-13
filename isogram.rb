@@ -4,12 +4,8 @@
 module Isogram
   def self.isogram? input
     letters = [];
-    input.downcase.gsub("-","").gsub(" ","").split("").each{|letter|
-      if letters.include?(letter)
-        return false 
-      else
-        letters << letter
-      end
-    }
+    input.downcase.gsub("-","").gsub(" ","").split("").each do |letter|
+      letters.include?(letter) ? return : letters << letter
+    end
   end
 end
