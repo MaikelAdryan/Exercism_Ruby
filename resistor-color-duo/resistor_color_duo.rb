@@ -2,7 +2,7 @@
 # Resistor Color Duo
 
 module ResistorColorDuo
-  COLORS = {
+  BAND = {
     "black" =>  0,
     "brown" =>  1,
     "red" =>    2,
@@ -16,7 +16,7 @@ module ResistorColorDuo
   }
   def self.value colors
     colors_index = ""
-    colors[..1].each_with_object(COLORS) do |index , colors|
+    colors[..1].each_with_object(BAND) do |index , colors|
       colors_index += colors[index].to_s
     end
     colors_index.to_i
