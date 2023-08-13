@@ -2,7 +2,7 @@
 # Resistor Color Duo
 
 module ResistorColorDuo
-  BLEND = {
+  COLORS = {
     :black  => 0,
     :brown  => 1,
     :red    => 2,
@@ -15,6 +15,6 @@ module ResistorColorDuo
     :white  => 9
   }
   def self.value colors
-    (BLEND[colors[0].to_sym].to_s + BLEND[colors[1].to_sym].to_s).to_i
+    (COLORS[colors[0].to_sym].to_s + COLORS[colors[1].to_sym].to_s).to_i
   end
 end
