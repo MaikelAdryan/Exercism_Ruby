@@ -6,7 +6,7 @@ class LocomotiveEngineer
 
   def self.fix_list_of_wagons(each_wagons_id, missing_wagons)
     combined_list_of_wagons = []
-    first , second, third, *rest = each_wagons_id
+    first, second, third, *rest = each_wagons_id
     combined_list_of_wagons << third
     combined_list_of_wagons.concat(missing_wagons, rest)
     combined_list_of_wagons << first
