@@ -4,7 +4,7 @@ class Tournament
   @wins = []
   @drawn_matches = []
   @loss = []
-  @team_points = {}
+  @team_points = []
 
   def self.tally input
     matches = []
@@ -13,7 +13,7 @@ class Tournament
     }
     matches.each{|first_team, second_team, match_result|
       checking_matches_played(first_team, second_team)
-      checking_winner(first_team, second_team, match_result) #p @wins.count(first_team) #checando quantas vezes venceu o primeiro time
+      checking_winner(first_team, second_team, match_result)
     }
     adding_points()
     to_s()
@@ -21,7 +21,7 @@ class Tournament
 
   def self.checking_matches_played first_team, second_team
     @matches_played << first_team << second_team
-    return @teams << first_team unless @teams.include? first_team
+    @teams << first_team unless @teams.include? first_team
     @teams << second_team unless @teams.include? second_team
   end
 
@@ -43,28 +43,38 @@ class Tournament
   end
 
   def self.adding_points
-    @teams.each{|team|
-      @team_points[team] = @wins.count(team)*3 + @drawn_matches.count(team)
+    @teams.sort.map{|team|
+      @team_points << [@wins.count(team)*3 + @drawn_matches.count(team), team]
     }
+    @team_points = @team_points.sort_by!
   end
-
-
   
   def self.to_s
-    result = <<~TALLY"Team                           | MP |  W |  D |  L |  P\n"
-    TALLY
-    @teams.each{|team|
-      result += "#{team.ljust(30)} |  #{@matches_played.count(team)} |  #{@wins.count(team)} |  #{@drawn_matches.count(team)} |  #{@loss.count(team)} |  #{@team_points[team]}\n"
+    result = ""
+    p @team_points
+    @team_points.each{|value, team|
+      result += "#{team.ljust(30)} |  #{@matches_played.count(team)} |  #{@wins.count(team)} |  #{@drawn_matches.count(team)} |  #{@loss.count(team)} |  #{value}\n"
     }
-    result
+    <<~TALLY
+    Team                           | MP |  W |  D |  L |  P\n#{result} 
+    TALLY
   end
 end
-# print Tournament.tally(
-# <<~INPUT
-# Devastating Donkeys;Blithering Badgers;win
-# Devastating Donkeys;Blithering Badgers;win
-# Devastating Donkeys;Blithering Badgers;win
-# Devastating Donkeys;Blithering Badgers;win
-# Blithering Badgers;Devastating Donkeys;win
-# INPUT
-# )
+
+
+input = <<~INPUT
+Courageous Californians;Devastating Donkeys;win
+Allegoric Alaskans;Blithering Badgers;win
+Devastating Donkeys;Allegoric Alaskans;loss
+Courageous Californians;Blithering Badgers;win
+Blithering Badgers;Devastating Donkeys;draw
+Allegoric Alaskans;Courageous Californians;draw
+INPUT
+
+print Tournament.tally(input)
+
+# Team                           | MP |  W |  D |  L |  P
+# Allegoric Alaskans             |  3 |  2 |  1 |  0 |  7
+# Courageous Californians        |  3 |  2 |  1 |  0 |  7
+# Blithering Badgers             |  3 |  0 |  1 |  2 |  1
+# Devastating Donkeys            |  3 |  0 |  1 |  2 |  1
